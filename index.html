@@ -38,6 +38,36 @@
             background-color: #1ea955;
             box-shadow: 0 4px 15px 0 rgba(37, 211, 102, 0.5);
         }
+        
+        /* --- ESTILOS DE NAVEGACIÓN MEJORADOS Y CORREGIDOS --- */
+        .nav-link {
+            position: relative;
+            display: inline-block; 
+            overflow: hidden; 
+            /* AUMENTO DEL ESPACIO INFERIOR (padding-bottom: 5px) 
+               para que la animación de la línea no corte las letras */
+            padding-bottom: 5px; 
+            margin-bottom: -5px; /* Compensa ligeramente el padding para mantener el flujo vertical */
+        }
+        
+        /* Estilo para la línea animada (subrayado) */
+        .nav-link::after {
+            content: '';
+            position: absolute;
+            bottom: 0; /* Colocado justo en la parte inferior del enlace */
+            left: 50%; 
+            width: 0; 
+            height: 3px;
+            background-color: #ec4899; /* Pink-500 */
+            transition: all 0.3s ease-in-out;
+            transform: translateX(-50%); 
+        }
+
+        /* Efecto al pasar el mouse */
+        .nav-link:hover::after {
+            width: 100%; 
+        }
+        /* --- FIN ESTILOS DE NAVEGACIÓN MEJORADOS Y CORREGIDOS --- */
     </style>
     <!-- Iconos de Lucide (FIX: Se carga como script estándar, no como módulo, para evitar el error de exportación) -->
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
@@ -57,14 +87,15 @@
                     </a>
                 </div>
 
-                <!-- Menú de Navegación (Desktop) - Se añade enlace a Testimonios -->
+                <!-- Menú de Navegación (Desktop) - SE APLICAN LAS CLASES 'nav-link' -->
                 <nav class="hidden md:flex space-x-8 items-center">
-                    <a href="#inicio" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Inicio</a>
-                    <a href="#servicios" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Servicios</a>
-                    <a href="#combos" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Combos</a>
-                    <a href="#testimonios" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Testimonios</a>
-                    <a href="#ventajas" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Beneficios</a>
-                    <a href="#galeria" class="text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Galería</a>
+                    <!-- Clases 'py-1' eliminadas de los nav-links para que el padding-bottom del CSS personalizado controle el espaciado -->
+                    <a href="#inicio" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Inicio</a>
+                    <a href="#servicios" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Servicios</a>
+                    <a href="#combos" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Combos</a>
+                    <a href="#testimonios" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Testimonios</a>
+                    <a href="#ventajas" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Beneficios</a>
+                    <a href="#galeria" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Galería</a>
                     <a href="#contacto" class="btn-luxury px-4 py-2 rounded-full font-medium shadow-lg hover:shadow-xl">Reservar Cita</a>
                 </nav>
 
@@ -155,9 +186,10 @@
                         <i data-lucide="star" class="w-5 h-5 text-yellow-500 fill-current"></i>
                     </div>
                     <blockquote class="text-gray-700 italic mb-4">
-                        "El tratamiento de queratina quedó espectacular. Lo mejor es que no tuve que moverme de casa y el resultado es de salón premium. ¡Súper recomendada en Cali!"
+                        <!-- Keratina con 'K' -->
+                        "El tratamiento de Keratina quedó espectacular. Lo mejor es que no tuve que moverme de casa y el resultado es de salón premium. ¡Súper recomendada en Cali!"
                     </blockquote>
-                    <p class="font-semibold text-pink-600">- María C. (Cliente de Queratina)</p>
+                    <p class="font-semibold text-pink-600">- María C. (Cliente de Keratina)</p>
                 </div>
 
                 <!-- Testimonio 2 -->
@@ -224,11 +256,11 @@
                     <p class="mt-3 text-lg font-extrabold text-purple-600">A consultar</p>
                 </div>
 
-                <!-- Tarjeta de Servicio 4: Tratamientos de Restauración (Keratina/Botox) -->
+                <!-- Tarjeta de Servicio 4: Tratamientos de Restauración (Keratina/Botox) - Keratina con 'K' -->
                 <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-pink-500 hover:shadow-xl transition duration-300">
                     <i data-lucide="flask-conical" class="w-6 h-6 mb-3 text-pink-600"></i>
                     <h3 class="text-xl font-bold text-gray-900 mb-2">Tratamientos de Restauración</h3>
-                    <p class="text-gray-500 text-sm">Fórmulas de queratina y botox capilar para reconstruir la fibra dañada y aportar fuerza.</p>
+                    <p class="text-gray-500 text-sm">Fórmulas de Keratina y botox capilar para reconstruir la fibra dañada y aportar fuerza.</p>
                     <p class="mt-3 text-lg font-extrabold text-purple-600">Desde $120.000</p>
                 </div>
                 
@@ -295,7 +327,7 @@
                     </div>
                 </div>
 
-                <!-- Combo 3: COMBO DE ALISADO - ACTUALIZADO CON KERATINA O BOTOX Y NUEVO PRECIO -->
+                <!-- Combo 3: COMBO DE ALISADO - Keratina con 'K' -->
                 <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-pink-900 relative overflow-hidden">
                      <!-- Etiqueta de Descuento -->
                     <span class="absolute top-0 right-0 bg-yellow-600 text-gray-900 text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡SÚPER OFERTA!</span>
@@ -337,6 +369,7 @@
                         <p class="text-sm font-semibold text-white">Corte Tendencia + Estilizado</p>
                     </div>
                 </div>
+                <!-- Keratina con 'K' -->
                 <div class="relative bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 group">
                     <div class="aspect-square">
                         <img src="https://placehold.co/400x400/f9a8d4/9d174d?text=Tratamiento+Keratina" alt="Tratamiento de Keratina a Domicilio" class="w-full h-full object-cover">
@@ -369,9 +402,9 @@
         <section id="contacto" class="bg-purple-800 py-16 sm:py-24 px-4 sm:px-6 lg:px-8 m-4 rounded-xl shadow-2xl">
             <div class="max-w-3xl mx-auto text-center">
                 <h2 class="text-3xl sm:text-5xl font-extrabold text-white mb-4">Agenda tu Experiencia Yosy</h2>
-                <!-- Teléfono y Ubicación Destacada - NÚMERO ACTUALIZADO -->
+                <!-- Teléfono y Ubicación Destacada -->
                 <p class="text-2xl font-bold text-pink-300 mb-2">¡Contáctanos Directo en Cali, Colombia!</p>
-                <p class="text-2xl font-extrabold text-white mb-6">WhatsApp: +58 415 568 0330</p>
+                <p class="text-2xl font-extrabold text-white mb-6">WhatsApp: +58 426 519 0724</p>
                 <!-- Mensaje para el formulario -->
                 <p class="text-xl text-purple-200 mb-8">
                     Para una respuesta inmediata, usa el botón de WhatsApp al final. Si prefieres, déjanos tus datos:
@@ -386,11 +419,13 @@
                         <option value="">-- Selecciona el Servicio Deseado --</option>
                         <option value="Combo Express: Corte & Estilizado">COMBO: Corte & Estilizado ($70.000)</option>
                         <option value="Combo Renovación Total: Corte + Hidratación">COMBO: Renovación Total (Corte de Puntas e Hidratación) Desde $90.000</option>
+                        <!-- Keratina con 'K' en el select -->
                         <option value="Combo Alisado Supremo: Keratina/Botox">COMBO: Alisado Supremo (Keratina/Botox, Corte de Puntas) Desde $120.000</option>
                         <option value="Corte y Estilizado">Corte y Estilizado ($40.000 base)</option>
                         <option value="Cepillado o Planchado">Cepillado (Blower) y Planchado (Desde $40.000)</option>
                         <option value="Tratamiento de Coloración">Coloración (Mechas, Tinte) - A consultar</option>
-                        <option value="Tratamiento de Restauración (Keratina/Botox)">Tratamientos de Restauración (Queratina, Botox) - Desde $120.000</option>
+                        <!-- Keratina con 'K' en el select -->
+                        <option value="Tratamiento de Restauración (Keratina/Botox)">Tratamientos de Restauración (Keratina, Botox) - Desde $120.000</option>
                         <option value="Tratamiento de Hidratación Profunda">Tratamientos de Hidratación Profunda - Desde $60.000</option>
                         <option value="Maquillaje para Eventos">Maquillaje para Eventos</option>
                         <option value="Otro Servicio">Otro Servicio (Escribir en el campo de texto)</option>
@@ -424,12 +459,12 @@
                 <a href="#" class="text-gray-400 hover:text-pink-400 transition duration-150 ease-in-out" title="Síguenos en Instagram">
                     <i data-lucide="instagram" class="w-6 h-6"></i>
                 </a>
-                <!-- Enlace de WhatsApp directo con el número ACTUALIZADO -->
-                <a href="https://wa.me/584155680330" target="_blank" class="text-gray-400 hover:text-pink-400 transition duration-150 ease-in-out" title="Contáctanos por WhatsApp">
+                <!-- Enlace de WhatsApp directo con el número actualizado -->
+                <a href="https://wa.me/584265190724" target="_blank" class="text-gray-400 hover:text-pink-400 transition duration-150 ease-in-out" title="Contáctanos por WhatsApp">
                     <i data-lucide="message-square" class="w-6 h-6"></i>
                 </a>
-                <!-- Enlace de llamada directa con el número ACTUALIZADO -->
-                <a href="tel:+584155680330" class="text-gray-400 hover:text-pink-400 transition duration-150 ease-in-out" title="Llámanos">
+                <!-- Enlace de llamada directa con el número actualizado -->
+                <a href="tel:+584265190724" class="text-gray-400 hover:text-pink-400 transition duration-150 ease-in-out" title="Llámanos">
                     <i data-lucide="phone" class="w-6 h-6"></i>
                 </a>
             </div>
@@ -438,8 +473,8 @@
 
     <!-- JavaScript para el Menú Móvil y Funcionalidad de WhatsApp -->
     <script>
-        // Número de WhatsApp (sin el signo '+') - ACTUALIZADO
-        const WA_NUMBER = '584155680330';
+        // Número de WhatsApp (sin el signo '+')
+        const WA_NUMBER = '584265190724';
 
         document.addEventListener('DOMContentLoaded', () => {
             const button = document.getElementById('mobile-menu-button');
@@ -447,7 +482,6 @@
             const form = document.getElementById('contactForm');
             
             // Renderiza los íconos de Lucide una vez que el DOM está listo
-            // Esto es necesario ahora que Lucide se carga como script global (no módulo)
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
