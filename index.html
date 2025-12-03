@@ -1,14 +1,15 @@
-<!DOCTYPE html>
-<html lang="es">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yosy Beauty Saloon - Belleza a Domicilio</title>
     <!-- Carga de Tailwind CSS para el estilizado -->
     <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluimos la fuente Inter (ya es la predeterminada de Tailwind, pero se mantiene para claridad) -->
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&display=swap');
+        
         /* Personalización de la fuente Inter */
-        html { font-family: 'Inter', sans-serif; }
+        html { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
         
         /* Paleta de colores personalizada con un toque de lujo */
         .color-primary { background-color: #ec4899; /* Pink-500 */ }
@@ -39,7 +40,7 @@
             box-shadow: 0 4px 15px 0 rgba(37, 211, 102, 0.5);
         }
         
-        /* --- ESTILOS DE NAVEGACIÓN MEJORADOS Y CORREGIDOS --- */
+        /* --- ESTILOS DE NAVEGACIÓN MEJORADOS --- */
         .nav-link {
             position: relative;
             display: inline-block; 
@@ -50,7 +51,7 @@
         .nav-link::after {
             content: '';
             position: absolute;
-            bottom: 0; /* Colocado justo en la parte inferior del enlace */
+            bottom: 0; 
             left: 50%; 
             width: 0; 
             height: 3px;
@@ -63,30 +64,56 @@
         .nav-link:hover::after {
             width: 100%; 
         }
-        /* --- FIN ESTILOS DE NAVEGACIÓN MEJORADOS Y CORREGIDOS --- */
+        /* --- FIN ESTILOS DE NAVEGACIÓN MEJORADOS --- */
 
         /* Estilos específicos para el logo en el navbar */
         .custom-logo {
-            height: 32px; /* Altura estándar para logos en la barra de navegación */
+            height: 32px; 
             width: auto;
             margin-right: 8px;
-            /* Aplicamos un pequeño filtro de sombra para que destaque mejor sobre el fondo */
             filter: drop-shadow(0 0 1px rgba(0, 0, 0, 0.1)); 
         }
         
         /* Estilos específicos para el logo grande en el Hero */
         .hero-logo {
             width: 100%;
-            max-width: 150px; /* Tamaño máximo para que no sea invasivo en desktop */
+            max-width: 150px; 
             height: auto;
-            margin-bottom: 1.5rem; /* Espaciado con el texto de abajo */
+            margin-bottom: 1.5rem; 
             box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
         }
-        /* En pantallas más grandes, puede ser un poco más grande si es necesario, pero 150px es un buen inicio */
         @media (min-width: 768px) {
              .hero-logo {
                 max-width: 200px;
             }
+        }
+        
+        /* --- ESTILO PARA BOTÓN FLOTANTE (FAB) --- */
+        #fixed-cta-whatsapp {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1000;
+            padding: 1rem;
+            border-radius: 9999px; /* Fully rounded */
+            box-shadow: 0 10px 20px rgba(37, 211, 102, 0.5);
+            animation: pulse-whatsapp 2s infinite;
+        }
+        
+        @keyframes pulse-whatsapp {
+            0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); }
+            70% { transform: scale(1); box-shadow: 0 0 0 10px rgba(37, 211, 102, 0); }
+            100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); }
+        }
+        /* --- FIN ESTILO PARA BOTÓN FLOTANTE (FAB) --- */
+        
+        /* Estilo especial para la tarjeta de precio 'A Consultar' */
+        .combo-consultar {
+            border-color: #dc2626; /* red-600 */
+            background-color: #fee2e2; /* red-100 */
+        }
+        .combo-consultar .text-price {
+            color: #b91c1c; /* red-700 */
         }
 
     </style>
@@ -94,9 +121,13 @@
     <script src="https://unpkg.com/lucide@latest/dist/umd/lucide.js" defer></script>
 </head>
 <body class="bg-gray-50 text-gray-800">
+    
+    <!-- Botón Flotante de WhatsApp (FAB) -->
+    <a href="#contacto" id="fixed-cta-whatsapp" class="btn-whatsapp text-white flex items-center justify-center transition duration-300 transform hover:scale-110">
+        <i data-lucide="whatsapp" class="w-8 h-8"></i>
+    </a>
 
     <!-- Encabezado (Header) y Navegación Responsive -->
-    <!-- Se mantiene sticky top-0 z-10 para navegación rápida -->
     <header class="bg-white shadow-lg sticky top-0 z-10">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between items-center h-16">
@@ -108,7 +139,7 @@
                             src="https://i.imgur.com/iw8ldLQ.png" 
                             alt="Logo de Yosy Beauty Saloon" 
                             class="custom-logo rounded-full"
-                            onerror="this.src='https://placehold.co/32x32/ec4899/ffffff?text=Y!'; this.classList.remove('rounded-full'); this.nextElementSibling.style.display='inline-block';"
+                            onerror="this.src='https://placehold.co/32x32/ec4899/ffffff?text=Y!'; this.classList.remove('rounded-full'); this.nextElementSibling.classList.remove('hidden');"
                         >
                         <!-- Icono de respaldo (oculto por defecto si la imagen carga bien) -->
                         <i data-lucide="scissors" class="hidden w-6 h-6 mr-1 text-pink-500"></i>
@@ -120,7 +151,9 @@
                 <nav class="hidden md:flex space-x-8 items-center">
                     <a href="#inicio" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Inicio</a>
                     <a href="#servicios" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Servicios</a>
+                    <a href="#unas" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Uñas</a>
                     <a href="#combos" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Combos</a>
+                    <a href="#depilacion" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Depilación</a>
                     <a href="#testimonios" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Testimonios</a>
                     <a href="#ventajas" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Beneficios</a>
                     <a href="#galeria" class="nav-link text-gray-600 hover:text-pink-600 transition duration-150 font-medium">Galería</a>
@@ -139,7 +172,9 @@
             <div class="px-2 pt-2 pb-3 space-y-1 sm:px-3">
                 <a href="#inicio" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Inicio</a>
                 <a href="#servicios" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Servicios</a>
+                <a href="#unas" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Uñas</a>
                 <a href="#combos" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Combos</a>
+                <a href="#depilacion" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Depilación</a>
                 <a href="#testimonios" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Testimonios</a>
                 <a href="#ventajas" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Beneficios</a>
                 <a href="#galeria" class="block px-3 py-2 rounded-md text-base font-medium text-gray-700 hover:bg-pink-50 hover:text-pink-600">Galería</a>
@@ -156,7 +191,7 @@
             
             <div class="relative z-10">
                 
-                <!-- *** LOGO GRANDE AÑADIDO AQUÍ *** -->
+                <!-- LOGO GRANDE -->
                 <img 
                     src="https://i.imgur.com/iw8ldLQ.png" 
                     alt="Logo Principal Yosy Beauty Saloon" 
@@ -173,9 +208,9 @@
                     Disfruta de tratamientos de alta calidad sin salir de la comodidad de tu hogar.
                 </p>
                 <div class="mt-10 flex justify-center">
-                    <a href="#contacto" class="btn-luxury inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full shadow-2xl transition duration-500 transform hover:scale-105">
-                        Reservar Mi Cita a Domicilio
-                        <i data-lucide="calendar-check" class="w-5 h-5 ml-2"></i>
+                    <!-- CTA PRINCIPAL: REDIRECCIÓN DIRECTA A WHATSAPP -->
+                    <a href="#" id="hero-whatsapp-cta" class="btn-whatsapp inline-flex items-center justify-center px-8 py-4 text-lg font-semibold rounded-full shadow-2xl transition duration-500 transform hover:scale-105">
+                        <i data-lucide="whatsapp" class="w-6 h-6 mr-2"></i> Chatea para Reservar
                     </a>
                 </div>
             </div>
@@ -266,8 +301,8 @@
         <section id="servicios" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-12 border-b-2 border-pink-200 pb-2 max-w-xl mx-auto">Nuestros Tratamientos Estelares</h2>
             
-            <!-- Grid de 5 columnas para centrar los 5 servicios -->
-            <div class="grid grid-cols-2 lg:grid-cols-5 gap-6 sm:gap-8">
+            <!-- Grid de 6 servicios (3x2) -->
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8 max-w-6xl mx-auto">
                 
                 <!-- Tarjeta de Servicio 1: Corte y Peinado -->
                 <div class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-pink-500 hover:shadow-xl transition duration-300">
@@ -308,14 +343,66 @@
                     <p class="text-gray-500 text-sm">Terapias intensivas con aceites y vitaminas para devolver el brillo, la suavidad y la vitalidad.</p>
                     <p class="mt-3 text-lg font-extrabold text-purple-600">Desde $60.000</p>
                 </div>
+                
+                <!-- Tarjeta de Servicio 6 (UÑAS ACTUALIZADO): Uñas y Manicura/Pedicura -->
+                <div id="unas" class="bg-white p-6 rounded-xl shadow-lg border-t-4 border-pink-500 hover:shadow-xl transition duration-300">
+                    <i data-lucide="paint-roller" class="w-6 h-6 mb-3 text-pink-600"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Uñas y Manicura</h3>
+                    <p class="text-gray-500 text-sm">Sistemas de uñas: Acrílico, Gel, Kapping, Soft Gel. También ofrecemos esmaltado semipermanente, manicura y pedicura spa.</p>
+                    <!-- PRECIO ACTUALIZADO A 'A CONSULTAR' -->
+                    <p class="mt-3 text-lg font-extrabold text-purple-600">A consultar</p>
+                </div>
+                
             </div>
         </section>
+        
+        <!-- SECCIÓN DE DEPILACIÓN CON CERA -->
+        <section id="depilacion" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-pink-100">
+            <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-6">Depilación con Cera a Domicilio</h2>
+            <p class="text-xl text-center text-gray-700 mb-12 max-w-2xl mx-auto">
+                Servicio completo de depilación profesional con cera de baja temperatura, ideal para pieles sensibles. Piel suave y perfecta sin salir de casa.
+            </p>
 
-        <!-- Sección de Combos y Descuentos -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-8 max-w-5xl mx-auto">
+                
+                <!-- Tipo de Servicio 1: Facial (Cejas eliminadas) -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+                    <i data-lucide="user-square" class="w-7 h-7 mb-3 text-purple-600"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Cera Facial</h3>
+                    <p class="text-gray-600 text-sm">Labio Superior, Barbilla, Patillas y Rostro completo.</p>
+                </div>
+                
+                <!-- Tipo de Servicio 2: Corporal -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+                    <i data-lucide="armchair" class="w-7 h-7 mb-3 text-purple-600"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Cera Corporal</h3>
+                    <p class="text-gray-600 text-sm">Axilas, Brazos completos, Medias y Piernas completas.</p>
+                </div>
+                
+                <!-- Tipo de Servicio 3: Especializado -->
+                <div class="bg-white p-6 rounded-xl shadow-lg border-l-4 border-purple-500">
+                    <i data-lucide="ruler" class="w-7 h-7 mb-3 text-purple-600"></i>
+                    <h3 class="text-xl font-bold text-gray-900 mb-2">Cera Especializada</h3>
+                    <p class="text-gray-600 text-sm">Bikini Clásico, Completo o estilo Brasileño. Total discreción.</p>
+                </div>
+            </div>
+            
+            <div class="text-center mt-10">
+                <a href="#contacto" class="btn-whatsapp px-8 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg inline-flex items-center">
+                    <i data-lucide="zap" class="w-5 h-5 mr-2"></i> Solicita Menú de Cera y Precios
+                </a>
+            </div>
+
+        </section>
+        <!-- FIN SECCIÓN DE DEPILACIÓN CON CERA -->
+
+
+        <!-- Sección de Combos y Descuentos REESTRUCTURADA -->
         <section id="combos" class="py-16 sm:py-24 px-4 sm:px-6 lg:px-8 bg-gray-100">
             <h2 class="text-3xl sm:text-4xl font-extrabold text-center text-gray-900 mb-6">Combos Especiales con Descuento</h2>
             <p class="text-xl text-center text-gray-600 mb-12 max-w-2xl mx-auto">Maximiza tu belleza y ahorra eligiendo uno de nuestros paquetes de servicio.</p>
 
+            <!-- CONTENEDOR DE COMBOS FLEXIBLE: Ahora es un grid de 3 columnas para que los 6 combos se vean bien en 2 filas -->
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8 max-w-7xl mx-auto">
                 
                 <!-- Combo 1: Corte + Estilizado -->
@@ -335,12 +422,56 @@
 
                     <div class="text-center">
                         <p class="text-sm text-gray-500 line-through">Precio Regular: $80.000</p>
-                        <p class="text-4xl font-extrabold text-purple-700 mt-1 mb-4">$70.000</p>
+                        <p class="text-4xl font-extrabold text-purple-700 mt-1 mb-4 text-price">$70.000</p>
+                        <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Reservar Combo</a>
+                    </div>
+                </div>
+                
+                <!-- Combo 2 (MANICURA RUSA DELUXE) -->
+                <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-pink-700 relative overflow-hidden">
+                    <!-- Etiqueta de Descuento -->
+                    <span class="absolute top-0 right-0 bg-red-600 text-white text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡IMPERDIBLE!</span>
+                    
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="diamond" class="w-8 h-8 text-pink-700 mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Combo Manicura Rusa Deluxe</h3>
+                    </div>
+                    
+                    <ul class="space-y-2 text-gray-700 mb-6 list-disc list-inside ml-5">
+                        <li>Manicura Rusa en Soft Gel</li>
+                        <li>Pedicura Spa en Semipermanente</li>
+                    </ul>
+
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500 line-through">Precio Regular: $160.000</p>
+                        <p class="text-4xl font-extrabold text-pink-800 mt-1 mb-4 text-price">$120.000</p>
+                        <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Reservar Combo</a>
+                    </div>
+                </div>
+                
+                <!-- Combo 3: ALISADO SUPREMO (Keratina/Botox) -->
+                <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-green-500 relative overflow-hidden">
+                     <!-- Etiqueta de Descuento -->
+                    <span class="absolute top-0 right-0 bg-green-600 text-white text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡Cabello Liso!</span>
+
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="flame" class="w-8 h-8 text-green-600 mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Combo Alisado Supremo</h3>
+                    </div>
+                    
+                    <ul class="space-y-2 text-gray-700 mb-6 list-disc list-inside ml-5">
+                        <li>Tratamiento Alisador (Keratina o Botox Capilar)</li>
+                        <li>Corte de Puntas de Diseño</li>
+                    </ul>
+
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500 line-through">Precio Regular: Desde $140.000</p> 
+                        <p class="text-4xl font-extrabold text-green-700 mt-1 mb-4 text-price">Desde $120.000</p>
                         <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Reservar Combo</a>
                     </div>
                 </div>
 
-                <!-- Combo 2: Corte + Hidratación (Renovación Total) -->
+                <!-- Combo 4: Corte + Hidratación (Renovación Total) -->
                 <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-pink-500 relative overflow-hidden">
                      <!-- Etiqueta de Descuento -->
                     <span class="absolute top-0 right-0 bg-purple-600 text-white text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡El Más Vendido!</span>
@@ -359,36 +490,64 @@
                     <div class="text-center">
                         <!-- Precio: Ajustado para Hidratación -->
                         <p class="text-sm text-gray-500 line-through">Precio Regular: Desde $100.000</p> 
-                        <p class="text-4xl font-extrabold text-pink-700 mt-1 mb-4">Desde $90.000</p>
+                        <p class="text-4xl font-extrabold text-pink-700 mt-1 mb-4 text-price">Desde $90.000</p>
                         <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Reservar Combo</a>
                     </div>
                 </div>
-
-                <!-- Combo 3: COMBO DE ALISADO - Keratina con 'K' -->
-                <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-pink-900 relative overflow-hidden">
-                     <!-- Etiqueta de Descuento -->
-                    <span class="absolute top-0 right-0 bg-yellow-600 text-gray-900 text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡SÚPER OFERTA!</span>
+                
+                <!-- Combo 5 (NUEVO): GLAMOUR TOTAL - COLORACIÓN (Posición 5) -->
+                <div class="p-8 rounded-xl shadow-2xl border-4 relative overflow-hidden combo-consultar">
+                    <!-- Etiqueta de Descuento -->
+                    <span class="absolute top-0 right-0 bg-red-600 text-white text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡Premium!</span>
 
                     <div class="flex items-center mb-4">
-                        <i data-lucide="straighten" class="w-8 h-8 text-pink-800 mr-3"></i>
-                        <h3 class="text-2xl font-bold text-gray-900">Combo Alisado Supremo</h3>
+                        <i data-lucide="sparkles" class="w-8 h-8 text-red-600 mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Glamour Total: Color & Cuidado</h3>
                     </div>
                     
-                    <ul class="space-y-2 text-gray-700 mb-6 list-disc list-inside ml-5">
-                        <li>Corte de Puntas/Diseño de Base</li>
-                        <!-- Keratina o Botox -->
-                        <li>Aplicación de Tratamiento Alisador (Keratina o Botox)</li>
+                    <ul class="space-y-2 text-gray-700 mb-4 list-disc list-inside ml-5">
+                         <li>Diseño de Mechas/Balayage y Contorno</li>
+                        <li>Corte de Puntas de Diseño</li>
+                        <li>Tratamiento de Hidratación Profunda</li>
+                        <li>Ondas o Estilizado Final</li>
                     </ul>
+                    
+                    <!-- TEXTO DE EVALUACIÓN PREVIA AÑADIDO AQUÍ -->
+                    <p class="text-sm font-semibold text-red-700 italic border-t border-red-300 pt-3 mb-4">
+                        *Este servicio requiere una evaluación previa para definir materiales y tiempo.
+                    </p>
+                    <!-- FIN TEXTO DE EVALUACIÓN PREVIA -->
 
                     <div class="text-center">
-                        <!-- Nuevo precio de oferta desde $120.000 -->
-                        <p class="text-sm text-gray-500 line-through">Precio Regular: Desde $140.000</p> 
-                        <p class="text-4xl font-extrabold text-pink-900 mt-1 mb-4">Desde $120.000</p>
-                        <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">¡Liso Perfecto!</a>
+                        <p class="text-sm font-semibold text-gray-700 mb-2">Precio según largo y técnica.</p>
+                        <p class="text-4xl font-extrabold mt-1 mb-4 text-price">A Consultar</p>
+                        <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Solicitar Cotización</a>
                     </div>
                 </div>
 
+                <!-- Combo 6: Glam Total (Uñas) (Anteriormente en posición 5) -->
+                <div class="bg-white p-8 rounded-xl shadow-2xl border-4 border-pink-900 relative overflow-hidden">
+                     <!-- Etiqueta de Descuento -->
+                    <span class="absolute top-0 right-0 bg-yellow-600 text-gray-900 text-sm font-bold px-4 py-1 rounded-bl-lg transform rotate-2 translate-y-[-5px] translate-x-[5px]">¡Uñas Perfectas!</span>
+
+                    <div class="flex items-center mb-4">
+                        <i data-lucide="gem" class="w-8 h-8 text-pink-800 mr-3"></i>
+                        <h3 class="text-2xl font-bold text-gray-900">Combo Glam Total</h3>
+                    </div>
+                    
+                    <ul class="space-y-2 text-gray-700 mb-6 list-disc list-inside ml-5">
+                         <li>Manicura Semipermanente</li>
+                        <li>Pedicura Spa Semipermanente</li>
+                    </ul>
+
+                    <div class="text-center">
+                        <p class="text-sm text-gray-500 line-through">Precio Regular: $90.000</p> 
+                        <p class="text-4xl font-extrabold text-pink-900 mt-1 mb-4 text-price">$80.000</p>
+                        <a href="#contacto" class="btn-luxury px-6 py-3 rounded-full font-medium shadow-lg hover:shadow-xl text-lg">Reservar Combo</a>
+                    </div>
+                </div>
             </div>
+            
         </section>
 
         <!-- Sección de Galería de Trabajos (Placeholder de Imágenes) -->
@@ -398,7 +557,7 @@
             
             <div class="grid grid-cols-2 md:grid-cols-4 gap-4 max-w-7xl mx-auto">
                 
-                <!-- EJEMPLO 1: REEMPLAZA ESTE 'src' CON LA URL DE TU PRIMERA FOTO -->
+                <!-- EJEMPLO 1: CORTE + CEPILLADO -->
                 <div class="relative bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 group">
                     <div class="aspect-square">
                         <img 
@@ -411,7 +570,7 @@
                     </div>
                 </div>
                 
-                <!-- EJEMPLO 2: REEMPLAZA ESTE 'src' CON LA URL DE TU SEGUNDA FOTO -->
+                <!-- EJEMPLO 2: KERATINA -->
                 <div class="relative bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 group">
                     <div class="aspect-square">
                         <img 
@@ -424,7 +583,7 @@
                     </div>
                 </div>
                 
-                <!-- EJEMPLO 3: REEMPLAZA ESTE 'src' CON LA URL DE TU TERCERA FOTO -->
+                <!-- EJEMPLO 3: BALAYAGE (Ahora relevante por el nuevo combo) -->
                 <div class="relative bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 group">
                     <div class="aspect-square">
                         <img 
@@ -437,16 +596,16 @@
                     </div>
                 </div>
                 
-                <!-- EJEMPLO 4: REEMPLAZA ESTE 'src' CON LA URL DE TU CUARTA FOTO -->
+                <!-- EJEMPLO 4: UÑAS (Nuevo foco) -->
                 <div class="relative bg-white rounded-xl overflow-hidden shadow-lg transform hover:scale-105 transition duration-300 group">
                     <div class="aspect-square">
                         <img 
-                            src="https://placehold.co/400x400/e879f9/9d174d?text=Hidratación+URL_AQUI" 
-                            alt="Hidratación Profunda con Ampollas" 
+                            src="https://placehold.co/400x400/e879f9/9d174d?text=Uñas+Acrilico+URL_AQUI" 
+                            alt="Servicio de Uñas Acrílicas y Semipermanente" 
                             class="w-full h-full object-cover">
                     </div>
                     <div class="absolute bottom-0 left-0 right-0 bg-gray-900 bg-opacity-70 p-2 text-center transition-opacity duration-300 opacity-100 group-hover:opacity-100">
-                        <p class="text-sm font-semibold text-white">Tratamiento de Hidratación</p>
+                        <p class="text-sm font-semibold text-white">Sistemas de Uñas y Semipermanente</p>
                     </div>
                 </div>
             </div>
@@ -462,9 +621,9 @@
                 <p class="text-2xl font-extrabold text-white mb-6">WhatsApp: +57 320 990 2097</p>
                 <!-- Mensaje para el formulario -->
                 <p class="text-xl text-purple-200 mb-8">
-                    Para una respuesta inmediata, usa el botón de WhatsApp al final. Si prefieres, déjanos tus datos:
+                    Para una respuesta inmediata, rellena el formulario y te enviaremos el mensaje preescrito por WhatsApp:
                 </p>
-                <!-- Formulario de Contacto (AHORA SIN EL ATRIBUTO action/method ya que usaremos JS para el WhatsApp) -->
+                <!-- Formulario de Contacto (AHORA CON VALIDACIÓN Y WHATSAPP) -->
                 <form id="contactForm" class="space-y-4">
                     <input type="text" id="nombre" placeholder="Tu Nombre Completo" class="w-full p-3 rounded-lg border-2 border-purple-400 focus:ring-pink-500 focus:border-pink-500 shadow-md transition duration-150 ease-in-out" required>
                     <input type="tel" id="telefono" placeholder="Tu Teléfono (Whatsapp recomendado)" class="w-full p-3 rounded-lg border-2 border-purple-400 focus:ring-pink-500 focus:border-pink-500 shadow-md transition duration-150 ease-in-out" required>
@@ -472,21 +631,28 @@
                     
                     <select id="servicio" class="w-full p-3 rounded-lg border-2 border-purple-400 focus:ring-pink-500 focus:border-pink-500 shadow-md transition duration-150 ease-in-out text-gray-700" required>
                         <option value="">-- Selecciona el Servicio Deseado --</option>
-                        <option value="Combo Express: Corte & Estilizado">COMBO: Corte & Estilizado ($70.000)</option>
-                        <option value="Combo Renovación Total: Corte + Hidratación">COMBO: Renovación Total (Corte de Puntas e Hidratación) Desde $90.000</option>
-                        <!-- Keratina con 'K' en el select -->
-                        <option value="Combo Alisado Supremo: Keratina/Botox">COMBO: Alisado Supremo (Keratina/Botox, Corte de Puntas) Desde $120.000</option>
+                        
+                        <!-- LISTA DE SERVICIOS EN EL MISMO ORDEN DE LAS TARJETAS DE COMBO -->
+                        <option value="Combo Express: Corte & Estilizado">COMBO 1: Express (Corte & Estilizado) $70.000</option>
+                        <option value="Combo Manicura Rusa Deluxe: Soft Gel + Pedicura Spa Semipermanente">COMBO 2: Manicura Rusa Deluxe (Soft Gel + Pedicura Spa) $120.000</option>
+                        <option value="Combo Alisado Supremo: Keratina/Botox">COMBO 3: Alisado Supremo (Keratina/Botox, Corte de Puntas) Desde $120.000</option>
+                        <option value="Combo Renovación Total: Corte + Hidratación">COMBO 4: Renovación Total (Corte de Puntas e Hidratación) Desde $90.000</option>
+                        <option value="Combo Glamour Total: Color & Cuidado (Corte, Mechas, Balayage, Hidratación)">COMBO 5: Glamour Total (Coloración y Cuidado) - A CONSULTAR</option>
+                        <option value="Combo Glam Total: Manicura y Pedicura Semipermanente">COMBO 6: Glam Total (Manicura y Pedicura Semipermanente) $80.000</option>
+                        
+                        <!-- OTROS SERVICIOS -->
+                        <option value="Sistema de Uñas (Acrílico/Gel/Kapping/Soft Gel/Semipermanente)">SISTEMA DE UÑAS (Acrílico/Gel/Kapping/Soft Gel/Semipermanente) - A CONSULTAR</option>
+                        <option value="Depilación con Cera">DEPILACIÓN CON CERA (Facial / Corporal / Especializada) - Consultar</option>
                         <option value="Corte y Estilizado">Corte y Estilizado ($40.000 base)</option>
                         <option value="Cepillado o Planchado">Cepillado (Blower) y Planchado (Desde $40.000)</option>
                         <option value="Tratamiento de Coloración">Coloración (Mechas, Tinte) - A consultar</option>
-                        <!-- Keratina con 'K' en el select -->
                         <option value="Tratamiento de Restauración (Keratina/Botox)">Tratamientos de Restauración (Keratina, Botox) - Desde $120.000</option>
                         <option value="Tratamiento de Hidratación Profunda">Tratamientos de Hidratación Profunda - Desde $60.000</option>
                         <option value="Maquillaje para Eventos">Maquillaje para Eventos</option>
                         <option value="Otro Servicio">Otro Servicio (Escribir en el campo de texto)</option>
                     </select>
                     
-                    <textarea id="mensajeExtra" placeholder="Escribe aquí si elegiste 'Otro Servicio', o cualquier detalle extra (fecha, hora preferida, largo de cabello, etc.)." class="w-full p-3 rounded-lg border-2 border-purple-400 focus:ring-pink-500 focus:border-pink-500 shadow-md transition duration-150 ease-in-out text-gray-700 h-24"></textarea>
+                    <textarea id="mensajeExtra" placeholder="Escribe aquí si elegiste 'Otro Servicio', o cualquier detalle extra (fecha, hora preferida, largo de cabello, tipo de uña, etc.)." class="w-full p-3 rounded-lg border-2 border-purple-400 focus:ring-pink-500 focus:border-pink-500 shadow-md transition duration-150 ease-in-out text-gray-700 h-24"></textarea>
 
                     <!-- Botón que activa la función de WhatsApp -->
                     <button type="submit" class="w-full sm:w-2/3 px-8 py-3 border border-transparent text-lg font-bold rounded-full shadow-lg transition duration-150 ease-in-out transform hover:scale-105 btn-whatsapp flex items-center justify-center mx-auto">
@@ -503,7 +669,7 @@
     <footer class="bg-gray-900 mt-12">
         <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8 text-center">
             <p class="text-gray-400 text-sm font-bold text-pink-500 flex justify-center items-center gap-2">
-                 <!-- Logo en Footer ACTUALIZADO con el guess del link directo -->
+                 <!-- Logo en Footer -->
                  <img 
                     src="https://i.imgur.com/iw8ldLQ.png" 
                     alt="Logo Pequeño de Yosy Beauty Saloon" 
@@ -537,18 +703,30 @@
 
     <!-- JavaScript para el Menú Móvil y Funcionalidad de WhatsApp -->
     <script>
-        // Número de WhatsApp (sin el signo '+')
+        // Número de WhatsApp (sin el signo '+') - ¡ACTUALIZADO A COLOMBIA!
         const WA_NUMBER = '573209902097';
 
         document.addEventListener('DOMContentLoaded', () => {
             const button = document.getElementById('mobile-menu-button');
             const menu = document.getElementById('mobile-menu');
             const form = document.getElementById('contactForm');
+            const heroCta = document.getElementById('hero-whatsapp-cta');
             
             // Renderiza los íconos de Lucide una vez que el DOM está listo
             if (typeof lucide !== 'undefined') {
                 lucide.createIcons();
             }
+            
+            // Función para generar la URL de WhatsApp con un mensaje predeterminado para el CTA del Hero
+            const generateHeroWhatsappUrl = () => {
+                const message = encodeURIComponent("¡Hola Yosy! Vengo de tu página web y quiero solicitar información sobre una cita a domicilio. ¿Podrías ayudarme a reservar?");
+                return `https://wa.me/${WA_NUMBER}?text=${message}`;
+            };
+            
+            // Asignar URL al botón flotante y al CTA del Hero
+            document.getElementById('fixed-cta-whatsapp').href = generateHeroWhatsappUrl();
+            heroCta.href = generateHeroWhatsappUrl();
+
 
             // Lógica para mostrar/ocultar el menú móvil
             button.addEventListener('click', () => {
@@ -575,9 +753,8 @@
                 const servicio = document.getElementById('servicio').value;
                 const mensajeExtra = document.getElementById('mensajeExtra').value;
                 
-                // Validación básica
+                // Validación básica (usando la función alert() personalizada)
                 if (!nombre || !telefono || !direccion || !servicio) {
-                    // Usamos la función de alerta personalizada para notificar al usuario
                     alert('Por favor, completa todos los campos obligatorios del formulario.');
                     return;
                 }
@@ -588,6 +765,11 @@
                 message += `*Teléfono:* ${telefono}\n`;
                 message += `*Dirección (Cali):* ${direccion}\n`;
                 message += `*Servicio Solicitado:* ${servicio}\n`;
+
+                if (servicio.includes("Glamour Total: Color & Cuidado")) {
+                    message += `*NOTA IMPORTANTE:* Entiendo que este servicio de coloración requiere una evaluación previa para definir el material y el tiempo necesario.\n`;
+                }
+
 
                 if (mensajeExtra.trim()) {
                     message += `*Detalles Adicionales:* ${mensajeExtra}\n`;
@@ -604,21 +786,22 @@
                 // Abrir el chat de WhatsApp en una nueva pestaña/ventana
                 window.open(whatsappUrl, '_blank');
                 
-                // Opcionalmente, mostrar un mensaje al usuario
-                alert('Serás redirigido a WhatsApp. Asegúrate de enviar el mensaje preescrito para confirmar tu solicitud.');
+                // Opcionalmente, mostrar un mensaje al usuario (usando la función alert() personalizada)
+                alert('Serás redirigido a WhatsApp. Por favor, revisa que el mensaje preescrito sea correcto y envíalo para confirmar tu solicitud.');
                 
                 // Reseteamos el formulario si el envío fue exitoso (opcional)
                 form.reset();
             });
         });
         
-        // Función de alerta personalizada (Reemplaza el uso nativo de alert())
+        // Función de alerta personalizada (Reemplaza el uso nativo de alert() y confirm())
         function alert(message) {
             const modalId = 'customAlertModal';
             let modal = document.getElementById(modalId);
             
             if (!modal) {
                 modal = document.createElement('div');
+                // Tailwind classes for fixed, full screen overlay
                 modal.className = 'fixed inset-0 bg-gray-900 bg-opacity-80 flex items-center justify-center z-50 transition-opacity duration-300 hidden';
                 modal.id = modalId;
                 modal.innerHTML = `
@@ -630,7 +813,6 @@
                 `;
                 document.body.appendChild(modal);
                 // Inicializar iconos de lucide dentro del modal
-                // Se verifica si lucide está disponible globalmente antes de llamar
                 if (typeof lucide !== 'undefined') {
                     lucide.createIcons();
                 }
@@ -646,5 +828,4 @@
         }
     </script>
 </body>
-
 </html>
